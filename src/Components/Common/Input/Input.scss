@@ -1,5 +1,6 @@
 @import '../../../Sass/abstracts/variables';
 
+// user input of form
 .movie-search-group {
     padding: 1rem;
 
@@ -7,25 +8,33 @@
         width: 100%;
         padding: 0.5rem;
         font-size: 1.2rem;
+        // input does have inherit from parent
+        // therefore, it forcefully has inherit value from the parent
         font-family: inherit;
         color: inherit;
         border-radius: 2px;
-        background-color: rgba($color-white, .5);
+        // setup background color in input box
+        background-color: rgba($color-white, .7);
         border: none;
         border-bottom: 3px solid transparent;
-        display: block;
+        // display: block;
         transition: all .4s;
 
         &:focus {
+            // remove blue outline generate automatically
             outline: none;
             box-shadow: 0 1rem 2rem rgba($color-black, .1);
+            // gerating black bottom line when the user clicks
             border-bottom: 3px solid $color-black;
         }
 
+        // for Safari and Chrome
         &::-webkit-input-placeholder {
             color: darkgreen;
         }
-
+        // when placeholder exists 
+        //      the label is transparent
+        //      and it is located all the way below 
         &:placeholder-shown + .movie-search__input--label {
             opacity: 0;
             visibility: hidden;
@@ -39,6 +48,8 @@
         font-weight: 700;
         margin-top: .7rem;
         display: block;
+
+        // for pseudo class above which hides label
         transition: all .2s;
         text-align: right;                
     }
@@ -48,45 +59,52 @@
     }
 }
 
+
 .movie-search__input--checkbox {
+    // hide check box buttons
     display: none;
+    // when the checkbox is checked controls the sibling element.
+    // the label which has a child <span>
+    // Inside of span element, "checked" button exists.
+    // Tha "checked" button shows up only when the check box is checked
     &:checked ~ .movie-search__checkbox--label .movie-search__checkbox--button::after{
+        content: '';
         opacity: 1;
     } 
 }
 
 .movie-search__checkbox--label {
+    color: $color-black;
     font-size: $default-font-size;
     cursor: pointer;
     position: relative;
     padding-left: 4rem;
 
+    // label's child which button outline design instead of the original button outline
     .movie-search__checkbox--button {
+        // to control size
         display: inline-block;
         width: 3rem;
         height: 3rem;
         border: 5px solid $color-grey-dark;
-        // border-radius: 50%;
-        // when it has an position, it does not have to be specified as relatie again
         position: absolute;
         top: -.4rem;
         left: 0;
 
-    &::after {
-        content: "";
-        // display: block;
-        height: 1.3rem;
-        width: 1.3rem;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: darkgreen;
-        opacity: 0;
-        transition: opacity .1s;
-
-    }
-
+        // to make "checked" button design inside of the outline above
+        &::after {
+            
+            content: "";
+            height: 1.3rem;
+            width: 1.3rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: darkgreen;
+            opacity: 0;
+            transition: opacity .1s;
+        }
     }
 }
 

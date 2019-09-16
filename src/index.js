@@ -9,7 +9,8 @@ import App from './Components/App';
 
 const store = createStore(reducers, applyMiddleware(reduxThunk));
 
-
+// React-redux interface Wraps up React
+//  Then, it runs before React. 
 ReactDOM.render(
     <Provider store={ store }>
         <App />

@@ -1,3 +1,4 @@
+// Input attributes setup to use "map" to render input elements
 export default [{
     type: 'text',
     name: 'title',

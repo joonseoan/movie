@@ -1,5 +1,6 @@
 @import '../../Sass/abstracts/variables';
 
+// Movie List
 .movie-list {
 
     margin-top: 4rem;
@@ -11,11 +12,13 @@
     }
 
     &__group {
+        // List movies using flex box
         padding: 3rem;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
 
+        // flex box childs
         & > div {
             padding: 2rem;
             font-size: 1.2rem;
@@ -24,38 +27,26 @@
             box-shadow: 0 1.5rem 4rem rgba($color-white, .1);
             margin-bottom: 2rem;
             margin-right: 2rem;
-        }
+        }    
 
-        &__item {
-            border-radius: 5px;
-            margin: 0 auto;
-            position: relative;
-            // width: 100%;
-            justify-content: center;
-        }
-
-
-  
-
-        // .movie-group__card-group {
-
-            
-        // }
-
-        // .movie-group__card-item {
-
-        // }
-
-        // .movie-group__card-item__front {
-
-        // }
-        
     }
+    // each movie item
+    .movie-list__group__item {
+        border-radius: 5px;
+        margin: 0 auto;
+        position: relative;
+        justify-content: center;
+    }   
+    
 
 }
 
+
 .movie-list__group__card-item {
-    perspective: 150rem;
+    // card's perspective setup when it rotates
+    perspective: 1500rem;
+    
+    // For moziila brwoser 
     -moz-perspective: 150rem;
     position: relative;
     height: 52rem;
@@ -63,20 +54,25 @@
     margin: 0 auto;
 }
 
+// for both bothe sides, front and back sides
 .card-side {
-
+    
     font-size: 4rem;
     height: 52rem;
+    // For smooth transition
     transition: all .8s ease;
+    // both front and back sides are fixed at the same parent area
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
+
+    // both card's back sides are not visible
+    // FYI, front and back sides above are the first and the second elements
     backface-visibility: hidden;
     border-radius: 3px;
     box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
-    overflow: hidden;
-
+    
 } 
 
 .card__front {
@@ -88,18 +84,9 @@
     font-size: 2.8rem;
     font-weight: 300;
     text-transform: uppercase;
-    // text-align: center;
     color: $color-secondary-dark;
     padding-top: 40%;
-    // it is followed by position at the parent, "card"
-    // position: absolute;
-    
-    // Without the top/right below, it is displayed "z-index-1"
-    // which means no space for this
-    // top: 12rem;
-    // right: 2rem;
-    // to make span: inline two lines
-    // width: 65%;
+
 }
 
 .card__detail {
@@ -109,12 +96,7 @@
     ul {
         list-style: none;
         width: 80%;
-
-        // Please remember over and over
-        // To centeralize the block element of block
-        //  use margin
         margin: 0 auto;
-        // block element
         li {
             text-align: center;
             font-size: 1.5rem;
@@ -126,41 +108,46 @@
 
 .card__back {
     background-color: $color-grey-light-2;
-    // background-color: green;
+    // Cards rotates on the basis of  "Y" coordinate
     transform: rotateY(180deg);
     color: $color-secondary-dark;
     
 }
 
+// outline of post
 .card__back--post {
   
     width: 90%;
     background-size: cover;
     height: 80%;
     padding-top: 2rem;
-    // padding: 2rem;
-    // background-blend-mode: screen;
     margin: 0 auto;
 }
 
+// fitting card size and making it responsive
 .card__back--picture {
     width: 85%;
     height: 100%;
 
 }
 
+// setting up the card that lets the child rotate
+//  when the user hovers
+// It rotates in 180 degree and then disappears
+//  because of "backface-visibility: hidden;" above
 .movie-list__group__card-item:hover .card__front {
     // moving in other direction!
     transform: rotateY(-180deg);
 }
 
-// open side--back
+// In default, it was set up in 180 degree.
+// Therefore, it can not viewed because of backface-visibility: hidden;
+// When the user hover around the card, it rotates to 0 degree and then it is visible
 .movie-list__group__card-item:hover .card__back {
     transform: rotateY(0deg);
 }
 
-
-
+// media setup
 @media only screen and (max-width: 890px) {
     .movie-list__group > div {
        width: 100%;

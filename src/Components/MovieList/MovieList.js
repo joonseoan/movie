@@ -9,16 +9,17 @@ import './MovieList.scss';
 
 const MovieList = props => {
 
+    // just in case, wait until the movie data comes in
     if(!props.searchResult) return <div />;
 
     const renderMovies = () => {
         if(props.searchResult) {
-
+            console.log(props.searchResult)
+            // rendering all movie data
             return props.searchResult.map(movie => {
                 const { Title, Type, Year, Poster, imdbID } = movie;
                 return(
                     <div className="movie-list__group__item" key={ movie.imdbID }>
-                        <div className="movie-list__group__card-group"></div>
                          <div className="movie-list__group__card-item">
                             <div className="card-side card__front">
                                 <h4 className="card__title">{ Title }</h4>
@@ -31,9 +32,16 @@ const MovieList = props => {
                             </div>
                             <div className="card-side card__back">
                                 <div className="card__back--post">
-                                    <img className="card__back--picture" src={ Poster !== 'N/A' ? Poster : '/img/no_available.PNG' } alt={ Title } />
+                                    <img className="card__back--picture" src={ Poster !== 'N/A' ?
+                                        Poster : 
+                                        '/img/no_available.PNG' } 
+                                        alt={ Title } 
+                                    />
                                 </div>
+                                {/* by using the inline function below, invoke the action creator to get the movie detail*/}
                                 <Button onClick={ () => props.fetchMovieDetail(imdbID) }>
+                                
+                                {/* Link to the second page */}
                                     <Link className="link" to={`/MovieDetail/${ imdbID }`}>Detail</Link>
                                 </Button>
                             </div>
@@ -47,7 +55,9 @@ const MovieList = props => {
     return(
         <div className="movie-list">
             { props.searchResult.error ? 
-                <div className="movie-list__error">{ props.searchResult.error }</div> : 
+                // render error message when movies are not available
+                <div className="movie-list__error">{ props.searchResult.error }</div> :
+                // render movie list
                 <div className="movie-list__group">{ renderMovies() }</div> }
         </div>
     );
