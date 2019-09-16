@@ -1,0 +1,42 @@
+@import '../../Sass/abstracts//variables';
+
+.movie-form {
+    padding: 3rem;
+    font-size: 2rem;
+    background-image: linear-gradient(to right bottom, $color-grey-dark-3, $color-grey-dark);
+    text-align: center;
+
+    &-title {
+        padding: 1rem;
+        margin-bottom: 2rem;
+        color: $color-white;        
+    }
+    
+    .movie-search {
+    
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        & > div {
+            padding: 2rem;
+            font-size: 1.2rem;
+            background-color: $color-grey-dark-2;
+            width: 17%;
+            box-shadow: 0 1.5rem 4rem rgba($color-white, .1);
+            margin-bottom: 2rem;
+            &:not(:last-child) {
+                margin-right: 2rem;
+            }
+        }
+    }
+
+}
+
+
+@media only screen and (max-width: 890px) {
+    .movie-search > div {
+       width: 100%;
+    }
+    
+}

@@ -1,0 +1,92 @@
+@import '../../../Sass/abstracts/variables';
+
+.movie-search-group {
+    padding: 1rem;
+
+    .movie-search__input--text {
+        width: 100%;
+        padding: 0.5rem;
+        font-size: 1.2rem;
+        font-family: inherit;
+        color: inherit;
+        border-radius: 2px;
+        background-color: rgba($color-white, .5);
+        border: none;
+        border-bottom: 3px solid transparent;
+        display: block;
+        transition: all .4s;
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 1rem 2rem rgba($color-black, .1);
+            border-bottom: 3px solid $color-black;
+        }
+
+        &::-webkit-input-placeholder {
+            color: darkgreen;
+        }
+
+        &:placeholder-shown + .movie-search__input--label {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-5rem);
+        }
+    }
+
+    .movie-search__input--label {
+        color: $color-black;
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-top: .7rem;
+        display: block;
+        transition: all .2s;
+        text-align: right;                
+    }
+
+    .movie-search__validation {
+        color: chartreuse;
+    }
+}
+
+.movie-search__input--checkbox {
+    display: none;
+    &:checked ~ .movie-search__checkbox--label .movie-search__checkbox--button::after{
+        opacity: 1;
+    } 
+}
+
+.movie-search__checkbox--label {
+    font-size: $default-font-size;
+    cursor: pointer;
+    position: relative;
+    padding-left: 4rem;
+
+    .movie-search__checkbox--button {
+        display: inline-block;
+        width: 3rem;
+        height: 3rem;
+        border: 5px solid $color-grey-dark;
+        // border-radius: 50%;
+        // when it has an position, it does not have to be specified as relatie again
+        position: absolute;
+        top: -.4rem;
+        left: 0;
+
+    &::after {
+        content: "";
+        // display: block;
+        height: 1.3rem;
+        width: 1.3rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: darkgreen;
+        opacity: 0;
+        transition: opacity .1s;
+
+    }
+
+    }
+}
+

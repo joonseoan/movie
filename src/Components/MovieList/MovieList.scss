@@ -1,0 +1,169 @@
+@import '../../Sass/abstracts/variables';
+
+.movie-list {
+
+    margin-top: 4rem;
+    background-color: $color-grey-light-2;
+    width: 100%;
+
+    &__error {
+        color: $color-secondary-dark;
+    }
+
+    &__group {
+        padding: 3rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        & > div {
+            padding: 2rem;
+            font-size: 1.2rem;
+            background-color: $color-grey-dark-2;
+            width: 45%;
+            box-shadow: 0 1.5rem 4rem rgba($color-white, .1);
+            margin-bottom: 2rem;
+            margin-right: 2rem;
+        }
+
+        &__item {
+            border-radius: 5px;
+            margin: 0 auto;
+            position: relative;
+            // width: 100%;
+            justify-content: center;
+        }
+
+
+  
+
+        // .movie-group__card-group {
+
+            
+        // }
+
+        // .movie-group__card-item {
+
+        // }
+
+        // .movie-group__card-item__front {
+
+        // }
+        
+    }
+
+}
+
+.movie-list__group__card-item {
+    perspective: 150rem;
+    -moz-perspective: 150rem;
+    position: relative;
+    height: 52rem;
+    width: 60%;
+    margin: 0 auto;
+}
+
+.card-side {
+
+    font-size: 4rem;
+    height: 52rem;
+    transition: all .8s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    backface-visibility: hidden;
+    border-radius: 3px;
+    box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
+    overflow: hidden;
+
+} 
+
+.card__front {
+    background-color: $color-white;
+}
+
+.card__title {
+
+    font-size: 2.8rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    // text-align: center;
+    color: $color-secondary-dark;
+    padding-top: 40%;
+    // it is followed by position at the parent, "card"
+    // position: absolute;
+    
+    // Without the top/right below, it is displayed "z-index-1"
+    // which means no space for this
+    // top: 12rem;
+    // right: 2rem;
+    // to make span: inline two lines
+    // width: 65%;
+}
+
+.card__detail {
+
+    padding: 3rem;
+
+    ul {
+        list-style: none;
+        width: 80%;
+
+        // Please remember over and over
+        // To centeralize the block element of block
+        //  use margin
+        margin: 0 auto;
+        // block element
+        li {
+            text-align: center;
+            font-size: 1.5rem;
+            padding: 1rem;
+            border-bottom: 1px solid $color-grey-light-2;  
+        }
+    }
+}
+
+.card__back {
+    background-color: $color-grey-light-2;
+    // background-color: green;
+    transform: rotateY(180deg);
+    color: $color-secondary-dark;
+    
+}
+
+.card__back--post {
+  
+    width: 90%;
+    background-size: cover;
+    height: 80%;
+    padding-top: 2rem;
+    // padding: 2rem;
+    // background-blend-mode: screen;
+    margin: 0 auto;
+}
+
+.card__back--picture {
+    width: 85%;
+    height: 100%;
+
+}
+
+.movie-list__group__card-item:hover .card__front {
+    // moving in other direction!
+    transform: rotateY(-180deg);
+}
+
+// open side--back
+.movie-list__group__card-item:hover .card__back {
+    transform: rotateY(0deg);
+}
+
+
+
+@media only screen and (max-width: 890px) {
+    .movie-list__group > div {
+       width: 100%;
+    }
+    
+}
