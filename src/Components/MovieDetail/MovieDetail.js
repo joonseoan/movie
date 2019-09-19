@@ -23,7 +23,8 @@ const MovieDetail = props => {
                     {/* some of movie data does not have movie images. Inserted "no image available" image  */}
                     <img className="movie-detail__poster--size" src={ Poster !== 'N/A' ?
                         Poster : 
-                        '/img/no_available.PNG' } alt={ Title } />
+                        '/img/no_available.PNG' } alt={ Title } 
+                    />
                 </div>
                 <ul className="movie-detail__list">
                     <li>{ Year }</li>
@@ -33,7 +34,8 @@ const MovieDetail = props => {
                     {/* some of data does not have Ratings's "Value" even though it returns the array */}
                     <li>{ Ratings.length > 0  && Ratings[0].Value ?
                         Ratings[0].Value : 
-                        'Not Available'}</li>
+                        'Not Available'}
+                    </li>
                 </ul>
             </div>
             <Button>
@@ -41,7 +43,6 @@ const MovieDetail = props => {
             </Button>
         </div>);
     } else {
-        
         return <div>Waiting...</div>
     }  
 }

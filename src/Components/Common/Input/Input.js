@@ -6,7 +6,7 @@ import './Input.scss';
 // Formik uses its own built-in call back functions like Redux-From
 // The user data are saved at cache memory in redux store and then they are returned data components even when the page swiches
 // Therefore both are required at the moment
-const Input = ({ type, id, name, onChange, values, placeholder, label, handleBlur , ErrorMessage, onReactChange }) => {  
+const Input = ({ type, id, name, onFormikChange, reactValues, placeholder, label, formikHandleBlur, FormikErrorMessage, onReactChange, formikValues }) => {  
 
     return( 
         <React.Fragment>
@@ -21,25 +21,28 @@ const Input = ({ type, id, name, onChange, values, placeholder, label, handleBlu
                             name={ name }
                             onChange={e => {
                                 // onChanges for Formik and React
-                                onChange(e);
+                                onFormikChange(e);
                                 onReactChange(e);
                             }}
                             // values are from redux store
-                            value={ values[name] }  
+                            value={ formikValues[name] }
                             placeholder={ placeholder }
-                            onBlur={ handleBlur }
+                            onBlur={ formikHandleBlur }
                     />
                          <label htmlFor={ id } className="movie-search__input--label">{ label }</label>
                         <div className="movie-search__validation">
-                            <ErrorMessage name={ name }>
+                            <FormikErrorMessage name={ name }>
                                 { msg => { 
-                                    return <div>{ msg }</div>;
+                                    if(name === 'title') {
+                                        return <div>{ reactValues.title && !formikValues.title ? '' : msg }</div>;
+                                    } else {
+                                        return <div>{ reactValues.year && !formikValues.year ? '' : msg }</div>
+                                    }
                                 }}
-                            </ErrorMessage>
+                            </FormikErrorMessage>
                         </div>
                     </div>
                 ) : (
-                    
                     <div>
                         <input 
                             className="movie-search__input--checkbox"
@@ -47,10 +50,10 @@ const Input = ({ type, id, name, onChange, values, placeholder, label, handleBlu
                             id={ id } 
                             name={ name }
                             onChange={e => {
-                                onChange(e);
+                                onFormikChange(e);
                                 onReactChange(e);
                             }}
-                            checked={ values[name] }  
+                            checked={ formikValues[name] }  
                         />
                         <label htmlFor={ id }className="movie-search__checkbox--label">
                             <span className="movie-search__checkbox--button">&nbsp;</span>

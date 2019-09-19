@@ -13,45 +13,55 @@ export const enterMovieInfo = ({ name, value, type, checked }) => {
 // action creator for fetching movie list and deliver it to a reducer
 export const fetchMovies = search => async dispatch => {
 
-    // user's final input before submit
-    const { title, movie, series, episode, year } = search;
-    const url = `/?apikey=${ process.env.REACT_APP_MOVIE_KEY }&s=${ title }`;
-    
-    // asycn - await for axios's promise 
-    const response = await streams.get(url);
-    let movieList = response.data.Search;
-
-    // when the sever responses with no movie items
-    if(!movieList) {    
-        dispatch({ type: NO_MOVIE_AVAILABLE });
-        return;
-    }
-
-    // finding user's optional choices about movie type
-    let movieTypes = [];
-    movie && movieTypes.push('movie');
-    series && movieTypes.push('series');
-    episode && movieTypes.push('episode');
+    try {
+        // user's final input before submit
+        const { title, movie, series, episode, year } = search;
+        const url = `/?apikey=${ process.env.REACT_APP_MOVIE_KEY }&s=${ title }`;
         
-    // filtering data in terms of user's optional choices
-    if(movieTypes.length > 0) {
-        movieList = movieList.filter(contents => 
-            movieTypes.indexOf(contents.Type) !== -1);
-    }
+        // asycn - await for axios's promise 
+        const response = await streams.get(url);
+        let movieList = response.data.Search;
 
-    // filtering data for user's year choice
-    if(year) {
-        movieList = movieList.filter(contents => contents.Year === year)
-    }
+        // finding user's optional choices about movie type
+        let movieTypes = [];
+        movie && movieTypes.push('movie');
+        series && movieTypes.push('series');
+        episode && movieTypes.push('episode');
+            
+        // filtering data in terms of user's optional choices
+        if(movieTypes.length > 0) {
+            movieList = movieList.filter(contents => 
+                movieTypes.indexOf(contents.Type) !== -1);
+        }
+
+        // filtering data for user's year choice
+        if(year) {            
+            movieList = movieList.filter(contents => {
+                // console.log(year)
+                // console.log('Contents.year =========>', contents.Year)
+                const numericYear = Number(year);
+                const startYear = Number(contents.Year.slice(0, 4));
+                if (contents.Year.length > 5) {
+                    const endYear = Number(contents.Year.slice(5));                    
+                    return numericYear >= startYear && numericYear <= endYear;
+                }
+                return numericYear === startYear;
+            });
+        }
+        
+        // After filtering, when no movies are available
+        if(!movieList || movieList.length === 0) {    
+            dispatch({ type: NO_MOVIE_AVAILABLE });
+            return;
+        }
+
+        // dispatching actions when movies are available
+        dispatch({ type: FETCH_MOVIES, payload: movieList });
     
-    // After filtering, when no movies are available
-    if(!movieList || movieList.length === 0) {    
+    // Error Control
+    } catch (e) {
         dispatch({ type: NO_MOVIE_AVAILABLE });
-        return;
-    }
-
-    // dispatching actions when movies are available
-    dispatch({ type: FETCH_MOVIES, payload: movieList });
+    }    
 }
 
 // action creator for fetching movie's detail

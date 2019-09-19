@@ -12,8 +12,10 @@ import './MovieForm.scss';
 
 const MovieForm = props => {
 
+    const { searchMovies } = props;
+
     // handleBlur and handleChange are from Formik to validate user input data
-    const renderInputs = (handleBlur, handleChange) => {
+    const renderInputs = (handleBlur, handleChange, values) => {
 
         // inputAttributes: from attribute data from "Utility" directory
         return inputAttributes.map((input, index) => {
@@ -27,25 +29,21 @@ const MovieForm = props => {
 
                     // onChange is "props" name
                     // handleChange from Formik
-                    onChange={ handleChange }
+                    onFormikChange={ handleChange }
                     // onReactOnChange from react's comonent function
                     onReactChange={ onReactChange }
+                    formikValues={ values }
                     // current value from redux
-                    values={ props.searchMovies }
+                    reactValues={ searchMovies }
                     label={ label }
                     placeholder={ placeholder || undefined }
                     // Formik's callback function when validation error exists
-                    ErrorMessage={ ErrorMessage }
+                    FormikErrorMessage={ ErrorMessage }
                     // From Formik
-                    handleBlur={ handleBlur }
+                    formikHandleBlur={ handleBlur }
             />);
         });
-    }
-
-    // onSubmit to invoke "fetchMovies" action creator
-    const handleOnSubmit = movies => {
-        props.fetchMovies(movies);
-    }
+    }    
 
     // onReactChange to invoke "enterMovieInfo" action creator for user text input change
     const onReactChange = e => {
@@ -57,13 +55,7 @@ const MovieForm = props => {
         <Formik
             // Formik's initvalue setup for validation
             // FYI, checkbox value is not required to be validated 
-            initialValues={{
-                title: '',
-                movie: false,
-                series: false,
-                episode: false,
-                year: ''
-            }}
+            initialValues={{}}
 
             // Validation rules seup from "Yup" library located in "Utility" directory
             // Formik's validation functins are connected with "Yup"
@@ -71,25 +63,22 @@ const MovieForm = props => {
             
             // Formick's onSubmit invokes React's "onSubmit"
             onSubmit={values => {
-
-                // values are userinput data is updated on Formiks "handleOnChange"
-                const movieInputs = {
-                    title: values.title,
-                    movie: values.movie,
-                    series: values.series,
-                    episode: values.episode,
-                    year: values.year
-                }
-
-                // React's handleOnChange
-                handleOnSubmit(movieInputs);
+                              
+                // action creator to send values in handleChange below
+                props.fetchMovies(values);
             }}
-            
+                        
             // Formik's built props system
             render={props => {
                 
                 // props for input validation
-                const { handleBlur, handleSubmit, handleChange } = props;
+                const { handleBlur, handleSubmit, handleChange, values } = props;
+                
+                values.title = searchMovies.title;
+                values.movie = searchMovies.movie;
+                values.series = searchMovies.series;
+                values.episode = searchMovies.episode;
+                values.year = searchMovies.year;
                 
                 return (
                     <div className="movie-form">
@@ -99,7 +88,7 @@ const MovieForm = props => {
                         <form onSubmit={ handleSubmit }>
                             <div className ="movie-search">
                                 {/* invoke renderInput with Formik's props value */}
-                                { renderInputs(handleBlur, handleChange) }
+                                { renderInputs(handleBlur, handleChange, values) }
                             </div>    
                             <Button type="submit">Search</Button>
                         </form>

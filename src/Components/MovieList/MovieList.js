@@ -14,7 +14,6 @@ const MovieList = props => {
 
     const renderMovies = () => {
         if(props.searchResult) {
-            console.log(props.searchResult)
             // rendering all movie data
             return props.searchResult.map(movie => {
                 const { Title, Type, Year, Poster, imdbID } = movie;

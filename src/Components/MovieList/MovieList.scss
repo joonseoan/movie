@@ -2,7 +2,6 @@
 
 // Movie List
 .movie-list {
-
     margin-top: 4rem;
     background-color: $color-grey-light-2;
     width: 100%;
@@ -35,12 +34,9 @@
         border-radius: 5px;
         margin: 0 auto;
         position: relative;
-        justify-content: center;
+        margin-bottom: 2rem;
     }   
-    
-
 }
-
 
 .movie-list__group__card-item {
     // card's perspective setup when it rotates
