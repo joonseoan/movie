@@ -11,7 +11,7 @@ export default Yup.object().shape({
     year: Yup.string()
         .trim('Remove space')                         
         .matches(/^[0-9]/i, 'Must use number only')
-        // I assumed that year must be a 4-didit number
+        // I assumed that year input must be a 4-didit number
         .min(4, '4-digit year required')
         .max(4, 'Must use 4 digits')
 });
